@@ -4,7 +4,7 @@ A repositories for public kasumi bot
 
 ## Invite to your server
 
-[link]()
+[link](https://discord.com/oauth2/authorize?client_id=806810705205395456&permissions=8&scope=bot)
 
 ## Main Repositories
 
