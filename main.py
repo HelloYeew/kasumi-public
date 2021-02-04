@@ -129,7 +129,8 @@ async def about(ctx):
     embed.add_field(name="GitHub Repositories", value="https://github.com/HelloYeew/kasumi", inline=False)
     embed.add_field(name="About My Father", value=father_info, inline=False)
     embed.set_thumbnail(url = "https://github.com/HelloYeew/kasumi/blob/main/icon/kasumiicon.jpg?raw=true")
-    embed.add_field(name = "Under Development", value="I'm under development. My father have a lot of work to make me. If you find something wrong about me you can DM ny father!")
+    embed.add_field(name = "Under Development", value="I'm under development. My father have a lot of work to make "
+                                                      "me. If you find something wrong about me you can DM my father!")
     await ctx.send(embed=embed)
 
 # help command
