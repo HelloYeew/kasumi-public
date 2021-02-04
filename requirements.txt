@@ -1,0 +1,8 @@
+discord.py
+scipy
+numpy~=1.19.5
+requests~=2.25.1
+pandas~=1.2.1
+logging~=0.4.9.6
+pornhubapi
+NHentai-API
