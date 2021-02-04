@@ -273,7 +273,7 @@ async def nhentai(ctx, word: str):
         if word == "random":
             result = nhentai_random()
             embed = discord.Embed(color=discord.Color.from_rgb(222, 137, 127))
-            embed.title = f"🔎 You have request random hentai for me?'"
+            embed.title = f"🔎 You have request random hentai from me?"
             embed.description = f"You have it!"
             embed.add_field(name="Title", value=result.title, inline=False)
             embed.add_field(name="Second Title", value=result.secondary_title, inline=False)
