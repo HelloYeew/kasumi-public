@@ -1,6 +1,6 @@
 # Kasumi Public
 
-A repositories for public kasumi bot
+A repositories for public Kasumi bot
 
 ## Invite to your server
 
