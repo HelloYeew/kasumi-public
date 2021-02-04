@@ -122,7 +122,7 @@ async def about(ctx):
     father_info = """
     My Father : HelloYeew#2740
     GitHub : https://github.com/HelloYeew
-    Other Sns you can see in his Discord profiles.
+    Other SNS you can see in his Discord profiles.
     """
     embed.title = "About Kasumi"
     embed.description = "I'm Kasumi Toyama. I am finding a star that can make a music band with my friend."
