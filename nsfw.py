@@ -20,3 +20,9 @@ def nhentai_search(keyword):
     SearchPage = nhentai.search(query=keyword, sort='popular', page=1)
     result = SearchPage.doujins[0]
     return result
+
+
+def nhentai_random():
+    nhentai = NHentai()
+    result = nhentai.get_random()
+    return result

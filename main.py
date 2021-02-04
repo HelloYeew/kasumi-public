@@ -154,7 +154,8 @@ async def help(ctx):
     
     **NSFW Command**
     - {prefix}pornhub (keyword1) (keyword2) : Get first search result from Pornhub (You must put 2 keyword with spacebar between it because 1 keyword is not accurate enough)
-    - {prefix}nhentai (keyword) : Get first search result from Pornhub
+    - {prefix}nhentai (keyword) : Get first search result from Nhentai
+    - {prefix}nhentai random : Get random hentai
     '''
     embed = discord.Embed(color=discord.Color.from_rgb(222, 137, 127))
     embed.title = "❓ Help"
@@ -269,17 +270,35 @@ async def nhentai(ctx, word: str):
     if nsfw_mode == False:
         await ctx.send("You must enable NSFW command by **!nsfw on**")
     else:
-        result = nhentai_search(word)
-        embed = discord.Embed(color=discord.Color.from_rgb(222, 137, 127))
-        embed.title = f"🔎 Result of Nhentai search '{word}'"
-        embed.description = f"First Nhentai search result of *{word}*"
-        embed.add_field(name="Title", value=result.title, inline=False)
-        embed.add_field(name="Data Tag", value=result.data_tags, inline=False)
-        embed.add_field(name="Title ID", value=result.id, inline=True)
-        embed.add_field(name="Language", value=result.lang, inline=True)
-        embed.set_image(url=result.cover)
-        embed.set_footer(text="Hello! My name is Kasumi Toyama! My father is HelloYeew#2740.")
-        await ctx.send(embed=embed)
+        if word == "random":
+            result = nhentai_random()
+            embed = discord.Embed(color=discord.Color.from_rgb(222, 137, 127))
+            embed.title = f"🔎 You have request random hentai for me?'"
+            embed.description = f"You have it!"
+            embed.add_field(name="Title", value=result.title, inline=False)
+            embed.add_field(name="Second Title", value=result.secondary_title, inline=False)
+            embed.add_field(name="Tags", value=result.tags, inline=False)
+            embed.add_field(name="Artists", value=result.artists, inline=False)
+            embed.add_field(name="Characters", value=result.characters, inline=False)
+            embed.add_field(name="Parodies", value=result.parodies, inline=False)
+            embed.add_field(name="Group", value=result.parodies, inline=False)
+            embed.add_field(name="Language", value=result.languages, inline=True)
+            embed.add_field(name="Categories", value=result.categories, inline=True)
+            embed.set_image(url=result.images[0])
+            embed.set_footer(text="Hello! My name is Kasumi Toyama! My father is HelloYeew#2740.")
+            await ctx.send(embed=embed)
+        else:
+            result = nhentai_search(word)
+            embed = discord.Embed(color=discord.Color.from_rgb(222, 137, 127))
+            embed.title = f"🔎 Result of Nhentai search '{word}'"
+            embed.description = f"First Nhentai search result of *{word}*"
+            embed.add_field(name="Title", value=result.title, inline=False)
+            embed.add_field(name="Data Tag", value=result.data_tags, inline=False)
+            embed.add_field(name="Title ID", value=result.id, inline=True)
+            embed.add_field(name="Language", value=result.lang, inline=True)
+            embed.set_image(url=result.cover)
+            embed.set_footer(text="Hello! My name is Kasumi Toyama! My father is HelloYeew#2740.")
+            await ctx.send(embed=embed)
 
 
 bot.run(bot_token)
