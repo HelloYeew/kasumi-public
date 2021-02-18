@@ -45,6 +45,16 @@ def check_library():
         subprocess.check_call([sys.executable, "-m", "pip", "install", 'requests'])
         print("Requests install complete!")
 
+    # check Spotipy
+    print("Checking Spotipy...")
+    try:
+        import spotipy
+    except ImportError:
+        print("Spotipy not found.")
+        print("Run install command : -m pip install spotipy")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", 'spotipy'])
+        print("Spotipy install complete!")
+
 
 
 def check_internet(url='http://www.youtube.com', timeout=3):
