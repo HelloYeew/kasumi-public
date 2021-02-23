@@ -157,7 +157,7 @@ async def help(ctx):
     - {prefix}spotify (keyword) : Get first search result from Spotify
     
     **NSFW Command**
-    - {prefix}pornhub (keyword1) (keyword2) : Get first search result from Pornhub (You must put 2 keyword with spacebar between it because 1 keyword is not accurate enough)
+    - {prefix}pornhub (keyword) : Get first search result from Pornhub (You must put 2 keyword with spacebar between it because 1 keyword is not accurate enough)
     - {prefix}nhentai (keyword) : Get first search result from Nhentai
     - {prefix}nhentai random : Get random hentai from Nhentai
     '''
@@ -270,15 +270,16 @@ async def spotify(ctx, *args):
 # NSFW Command
 
 @bot.command()
-async def pornhub(ctx, word1: str, word2: str):
+async def pornhub(ctx, *args):
     """Return first search pornhub results"""
+    word = " ".join(args[:])
     if nsfw_mode == False:
         await ctx.send("You must enable NSFW command by **!nsfw on**")
     else:
-        result = pornhub_search(word1, word2)
+        result = pornhub_search(word)
         embed = discord.Embed(color=discord.Color.from_rgb(222, 137, 127))
-        embed.title = f"🔎 Result of Pornhub search '{word1} {word2}'"
-        embed.description = f"First Pornhub search result of *{word1} {word2}*"
+        embed.title = f"🔎 Result of Pornhub search '{word}'"
+        embed.description = f"First GIF search result of *{word}*"
         embed.add_field(name="Name", value=result[1], inline=False)
         embed.add_field(name="Link", value=result[0], inline=False)
         embed.add_field(name="Duration", value=result[2], inline=True)
@@ -289,12 +290,13 @@ async def pornhub(ctx, word1: str, word2: str):
 
 
 @bot.command()
-async def nhentai(ctx, word: str):
+async def nhentai(ctx, *args):
     """Return first search pornhub results"""
+    keyword = " ".join(args[:])
     if nsfw_mode == False:
         await ctx.send("You must enable NSFW command by **!nsfw on**")
     else:
-        if word == "random":
+        if keyword == "random":
             result = nhentai_random()
             embed = discord.Embed(color=discord.Color.from_rgb(222, 137, 127))
             embed.title = f"🔎 You have request random hentai from me?"
@@ -312,10 +314,10 @@ async def nhentai(ctx, word: str):
             embed.set_footer(text="Hello! My name is Kasumi Toyama! My father is HelloYeew#2740.")
             await ctx.send(embed=embed)
         else:
-            result = nhentai_search(word)
+            result = nhentai_search(keyword)
             embed = discord.Embed(color=discord.Color.from_rgb(222, 137, 127))
-            embed.title = f"🔎 Result of Nhentai search '{word}'"
-            embed.description = f"First Nhentai search result of *{word}*"
+            embed.title = f"🔎 Result of Nhentai search '{keyword}'"
+            embed.description = f"First Nhentai search result of *{keyword}*"
             embed.add_field(name="Title", value=result.title, inline=False)
             embed.add_field(name="Data Tag", value=result.data_tags, inline=False)
             embed.add_field(name="Title ID", value=result.id, inline=True)
