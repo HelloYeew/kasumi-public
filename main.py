@@ -9,6 +9,8 @@ from tenor import *
 from nsfw import *
 from spotify import *
 import os
+from datetime import datetime
+import pytz
 
 # before run please don't forget to put bot token
 
@@ -68,26 +70,12 @@ async def pfp(ctx):
     await ctx.send(embed=embed)
 
 
-@bot.group()
-async def cool(ctx):
-    """Says if a user is cool.
-    In reality this just checks if a subcommand is being invoked.
-    """
-    if ctx.invoked_subcommand is None:
-        await ctx.send('ชั่ยๆ, status:{0.subcommand_passed} เอาแบบเบิ้มๆอะ คือลืออะ เหมือนเซ้นอะ'.format(ctx))
-
-
-@cool.command(name='bot')
-async def _bot(ctx):
-    """Is the bot cool?"""
-    await ctx.send('Yes, the bot is cool.')
-
-
 @bot.command()
 async def repeat(ctx, text: str, time: int):
     """Repeat a message x times"""
     for i in range(time):
         await ctx.send(text)
+
 
 @bot.command()
 async def ping(ctx):
@@ -98,11 +86,12 @@ async def ping(ctx):
     embed.set_footer(text="Hello! My name is Kasumi Toyama! My father is HelloYeew#2740.")
     await ctx.send(embed=embed)
 
+
 @bot.command()
 async def profile(ctx, member: discord.User):
     author = ctx.message.author
     embed = discord.Embed(color=discord.Color.from_rgb(222, 137, 127))
-    if member.id == 729919152327753768 :
+    if member.id == 729919152327753768:
         embed.title = f"🐵 {member.name + '#' + member.discriminator}'s Profile"
     elif member.bot:
         embed.title = f"🤖 {member.name + '#' + member.discriminator}'s Profile"
@@ -117,6 +106,7 @@ async def profile(ctx, member: discord.User):
     embed.set_footer(text="Hello! My name is Kasumi Toyama! My father is HelloYeew#2740.")
     await ctx.send(embed=embed)
 
+
 @bot.command()
 async def about(ctx):
     embed = discord.Embed(color=discord.Color.from_rgb(222, 137, 127))
@@ -129,10 +119,29 @@ async def about(ctx):
     embed.description = "I'm Kasumi Toyama. I am finding a star that can make a music band with my friend."
     embed.add_field(name="GitHub Repositories", value="https://github.com/HelloYeew/kasumi", inline=False)
     embed.add_field(name="About My Father", value=father_info, inline=False)
-    embed.set_thumbnail(url = "https://github.com/HelloYeew/kasumi/blob/main/icon/kasumiicon.jpg?raw=true")
-    embed.add_field(name = "Under Development", value="I'm under development. My father have a lot of work to make "
-                                                      "me. If you find something wrong about me you can DM my father!")
+    embed.set_thumbnail(url="https://github.com/HelloYeew/kasumi/blob/main/icon/kasumiicon.jpg?raw=true")
+    embed.add_field(name="Under Development", value="I'm under development. My father have a lot of work to make "
+                                                    "me. If you find something wrong about me you can DM my father!")
     await ctx.send(embed=embed)
+
+
+@bot.command()
+async def send(ctx, channel_id: int, *args):
+    channel = bot.get_channel(channel_id)
+    author = ctx.message.author
+    message = " ".join(args[:])
+    UTC = pytz.utc
+    await ctx.send(f"✉️ Sending your message to channel {channel_id}...")
+    embed = discord.Embed(color=discord.Color.from_rgb(222, 137, 127))
+    embed.title = f"✉️ Message from {author.display_name}"
+    embed.description = message
+    embed.set_footer(text=f"Send by Kasumi | Time : {datetime.now(UTC)} UTC")
+    try:
+        await channel.send(embed=embed)
+        await ctx.send("✅ Complete!")
+    except:
+        await ctx.send("❌ Error : Check your channel ID or I can't reach that channel because I'm not in that server.")
+
 
 # help command
 
@@ -147,6 +156,8 @@ async def help(ctx):
     - {prefix}repeat (text_or_sth) (x) : Spam a text x time(s) (You cannot stop it)
     - {prefix}ping : Check ping
     - {prefix}profile (user) : Show full user's profile
+    - {prefix}send (channel_id) (message) : Send a message to a specific channel by a bot (You can target every channel that a bot can access)
+    - {prefix}gif (keyword) : Send first GIF search result of a keyword
     - {prefix}about : About me
     
     **Genius Command**
@@ -157,7 +168,7 @@ async def help(ctx):
     - {prefix}spotify (keyword) : Get first search result from Spotify
     
     **NSFW Command**
-    - {prefix}pornhub (keyword) : Get first search result from Pornhub (You must put 2 keyword with spacebar between it because 1 keyword is not accurate enough)
+    - {prefix}pornhub (keyword) : Get first search result from Pornhub
     - {prefix}nhentai (keyword) : Get first search result from Nhentai
     - {prefix}nhentai random : Get random hentai from Nhentai
     '''
@@ -224,8 +235,9 @@ async def roots4(ctx, n1: float, n2: float, n3: float, n4: float):
 # tenor command zone
 
 @bot.command()
-async def gif(ctx, word: str):
+async def gif(ctx, *args):
     """Return first GIF search result"""
+    word = " ".join(args[:])
     author = ctx.message.author
     try:
         result = tenor(tenor_token, word, 1)
@@ -247,6 +259,7 @@ async def gif(ctx, word: str):
     except:
         await ctx.send("🔎 No search result!")
 
+
 # Spotify Command
 
 @bot.command()
@@ -263,9 +276,11 @@ async def spotify(ctx, *args):
     embed.add_field(name="Release Date", value=search['release_date'], inline=True)
     embed.add_field(name="Popularity", value=search['popularity'], inline=True)
     embed.add_field(name="Preview", value=search['preview_url'], inline=False)
-    embed.set_footer(text=f"Total result : {search['total_result']} | Hello! My name is Kasumi Toyama! My father is HelloYeew#2740.")
+    embed.set_footer(
+        text=f"Total result : {search['total_result']} | Hello! My name is Kasumi Toyama! My father is HelloYeew#2740.")
     embed.set_image(url=search["image_url"])
     await ctx.send(embed=embed)
+
 
 # NSFW Command
 
