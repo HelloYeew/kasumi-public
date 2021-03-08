@@ -28,7 +28,7 @@ presence_status = "k!help | Findind a star!"
 streaming = discord.Streaming(platform="Twitch", name="k! | BanG Dream!",
                             detail="Premieres March 25, only on Netflix.",
                             url="https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                            game="k! | BanG Dream!")
+                            game="k!help | BanG Dream!")
 
 # First Config
 
