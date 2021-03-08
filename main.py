@@ -25,6 +25,10 @@ tenor_token = os.getenv("TENOR_TOKEN")
 
 prefix = "k!"
 presence_status = "k!help | Findind a star!"
+streaming = discord.Streaming(platform="Twitch", name="k! | BanG Dream!",
+                            detail="Premieres March 25, only on Netflix.",
+                            url="https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                            game="k! | BanG Dream!")
 
 # First Config
 
@@ -42,7 +46,7 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
-    await bot.change_presence(activity=discord.Game(presence_status))
+    await bot.change_presence(activity=streaming)
 
 
 @bot.command()
